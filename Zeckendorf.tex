@@ -1,0 +1,291 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[french]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+
+\title{Théorème de Zeckendorf}
+\author{Azizi Marwan & Crague Ilian}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Caractérisation de la suite de Fibonacci}
+
+La suite de Fibonacci est définie par le principe suivant: les deux premiers termes sont 0 et 1 et chaque terme est la somme des 2 précédents. Malgré son apparente simplicité, elle reste particulièrement intéressante pour un grand nombre de raisons, dont sa présence dans certains phénomènes naturels, mais aussi la non trivialité de son étude. En effet, en comptant les spirales formées par les graines de tournersols sur la face de ces fleurs, on obtient constamment un terme de Fibonacci.
+\[
+
+\left \{
+   \begin{array}{r c l}
+      F_0  & = & 0 \\
+      F_1& = & 1 \\
+      F_{n+2} & = & F_{n+1} \; + \; F_n\;,\; n \geq 0
+   \end{array}
+   \right .
+   
+\]
+
+
+
+\section{Propriétés essentielles et démonstrations}
+
+Dans toutes nos preuves nous utiliserons le principe de récurrence sous diverses formes. 
+Comme nous voulons montrer des propriétés sur l'ensemble des entiers naturels, (se figurant être les indices de la suite), il se révèle particulièrement adapté.
+
+
+\subsection{$ F_{n}$ est positive }\\
+
+On pose : $ P_n : "\:F_n \geq 1\:" \; \forall \;  n \: \in \: \mathbb{N}^{*} $\\
+\\
+$Initialisation : n = 1$\\
+
+$F_1 = 1$ et $F_2 = 1, \;$
+donc $ P_1$ et $ P_2$ vraies.\\ \\
+$Hérédité $: On suppose $P_n$ et $P_{n+1}$ vraies pour un entier n fixé, montrons que $P_{n+2}$ est vraie : \\
+
+$F_{n+2} \; = \; F_{n+1} \: + \: F_n $ 
+
+Par hypothèse de récurrence, $F_n$ et $F_{n+1}$ sont positifs, donc leur somme est positive : $F_{n+2} \; \geq \; 1$\\
+\\
+Donc $P_{n+2}$ est vraie. Donc, d'après le principe de récurrence, $P_n$ est vraie.
+
+\\
+\subsection{$F_n$ est strictement croissante à partir du rang 2}
+
+Soit n $\geq \; 2$, on a : 
+$F_{n+1} \; - \; F_n \; = F_{n-1}$\\
+$n \; \geq \; 2$, donc $n-1 \; \geq \; 1$, donc on peut appliquer 2.1 à $F_{n-1}$ :  $F_{n+1} \; - \; F_n \; \geq \; 1 \; > \; 0$\\
+
+donc $F_{n+1} \; > \; F_n$\\
+\\
+$F_n$ est strictement croissante à partir du rang 2.
+
+
+
+\section{Décomposition d'entiers naturels en termes de $F_n$, 
+théorème de Zeckendorf}
+
+On peut facilement décomposer n'importe quel entier naturel en termes de Fibonacci en s'interdisant les doublons, en opérerant de manière gloutonne.
+En essayant de prouver ce résultat, on en obtient un encore plus fort :
+non seulement chaque entier naturel admet une décomposition en somme de termes de Fibonacci, mais elle est unique et les termes sont non consécutifs : c'est l'énoncé du théorème de Zeckendorf, que nous allons démontrer par la suite :\\
+
+
+\begin{center}
+    \textbf{Tout entier naturel peut s'exprimer de manière unique comme somme de termes de Fibonacci non consécutifs.}
+\end{center}\\
+
+
+$Post-Scriptum$ : La représentation est unique, mais les termes sont considérés pour celle-ci à partir de l'indice $2$ : les termes $F_1$ et $F_2$ sont égaux.
+
+\subsection{Existence :}
+
+On pose $P_n$ : "$\exists \: F_{r_1} \: \ldots \: F_{r_k}$ non consécutifs, tels que : \sum_{i=1}^k F_{r_i} = n"$ 
+\\\\
+$Initialisation :$ $n\:=\:0$\\
+
+si on prend $n\; = \; 0\;, F_n \: = \: 0$, donc
+la propriété est vérifiée au rang 0.
+\\\\
+$Hérédité :$ On suppose $P_{N-1}$ vraie $\forall \; n \; \leq \; N-1$, montrons que $P_N$ est vraie :\\
+
+Soit A = \{ $i \; \in \; \mathbb{N} \; | \; F_i \: \leq \: N $ \}, $0 \: \in A$ et $F_n$ est strictement croissante à partir du rang 2, donc A est majoré et non vide. 
+\\
+
+Si $N \; \in \; A$ : $P_N$ est prouvée par hypothèse de récurence.
+
+Si $N \; \notin \; A$ : Soit $a$ = max(A). \\
+
+\[F_a \leq N < F_{a+1}\]
+\[0 \leq N - F_a < F_{a-1}\]\\
+
+On pose $N_1$ = $N \: - \: F_a$, comme $F_a$ $>$ 0, par hypothèse de récurrence, $N_1$ s'écrit comme somme $S$ de nombres de la suite de Fibonacci non consécutifs. $N$ s'écrit $S+F_a$
+\\
+Donc $P_{n+1}$ est vraie. Donc, d'après le principe de récurrence, $P_n$ est vraie pour tout entier $n$.
+
+\subsection{Lemme de la somme}
+
+Pour simplifier la démonstration de l'unicité de la décomposition de Zeckendorf,
+on veut montrer que la somme des termes de Fibonacci non consécutifs jusqu'à un indice n est inférieure au terme d'indice n+1 : \\
+Soit $(a_1,...,a_d)_n$ une famille d'entiers naturels inférieurs à $n$ non consécutifs telle que :
+
+$\forall{i} \in [1,d-1], \; a_i < a_{i+1} $, on a donc : $$\forall \; (a_i)_{i \: \leq \: d}, \;  \sum_{i=1}^{n} F_{a_i} \leq F_{a_{n}+1}$
+Montrons le par récurrence :\\
+
+On pose $ P_n : \; "\forall \; (a_i)_{i \: \leq \: d}, \;  \sum_{i=1}^{n} F_{a_i} \leq F_{a_{n}+1}"
+$\\\\
+$Initialisation$ : $n\;=\;1$\\ 
+
+$F_0 \; = \; 0, \;F_1 \; = \; 1$, $F_2 \;=  \; 1$, donc comme $F_1 \; \leq \; F_2$ et $F_0 \; \leq \; F_2$, la propriété est vérifiée au rang 1.
+\\\\
+$Hérédité :$ \\
+
+On suppose $P_n$ vraie pour un entier $n$ fixé, montrons que $P_{n+1}$ est vraie :\\
+Par hypothèse de récurrence, $\sum_{i=1}^{n} F_{a_i} \leq F_{a_{n}+1}$.\\
+De plus on sait que $a_p \; + \; 1 \; \leq \; a_{p+1}-1$ (car non consécutifs), donc : \[ \sum_{i=1}^{n} F_{a_i} + F_{a_{n+1}} \leq F_{a_n + 1} + F_{a_{n+1}},\]
+\[ \sum_{i=1}^{n+1} F_{a_i} \leq F_{a_{n+1} - 1} + F_{a_{n+1}},\]
+\[ \sum_{i=1}^{n+1} F_{a_i} \leq F_{a_{n+1} + 1} \]\\
+
+Donc $P_{n+1}$ est vraie. Donc, d'après le principe de récurrence, $P_n$ est vraie pour tout entier n.
+
+
+\subsection{Unicité}
+
+On veut désormais montrer l'unicité, une nouvelle fois par récurrence :\\
+
+$P_n$ : L'entier n admet une unique représentation de Zeckendorf.\\\\
+$Initialisation :$ $n\;=\;0$\\
+
+$F_0$ = 0 , $F_n$ est croissante, donc pour tout $n \: \geq \: 1 \:, \; F_n \; \geq \; 1$. Donc $P_0$ est vraie.
+\\\\
+$Hérédité :$ On suppose $P_{n}$ vraie $\forall \; n \; \leq \; N-1$, montrons que $P_{N}$ est vraie :\\
+
+Par l'absurde : on suppose la représentation de Zeckendorf de N non unique : \\
+il existe $r,s \geq 2$ tels que :
+\[N \; = \; \sum_{i=1}^r \: F_{a_i} \; = \; \sum_{j=1}^s \: F_{b_j} \]
+
+- Si $F_{a_r} \; = \; F_{b_s}$ : \\
+
+On pose $N_1 \; = \; N \: - \: F_{a_r} \; = \; N \: - \: F_{b_s} \; < \: N$. Donc par hypothèse de récurrence sur $N_1$, \; $P_{N}$ est vraie.\\
+
+- Si $F_{a_r} \; \ne \; F_{b_s}$ : \\
+
+On suppose $a_r \: < \: b_s$, donc $a_r \:+ \:1 \: \leq \: b_s$.
+
+Si $F_{b_s}$ = $n$ : on a forcément $\sum_{i=1}^r \: F_{a_i} \; \ne \; \sum_{j=1}^s \: F_{b_j}$, donc $P_N$ est vraie.
+
+Si $F_{b_s}\:<\:n$ : d'après le lemme de la somme :
+$F_{a_r +1}>n$. On a donc :
+\[ n < F_{a_r + 1} \leq F_{b_s} < n ,\]
+\[ce \; qui \; aboutit \; à \; une\; contradiction.\]
+
+
+
+Donc $P_N$ est vraie.\\
+
+La représentation de Zeckendorf de N est unique, pour tout entier N.
+
+
+\section{Système de numération de Zeckendorf}
+
+Chaque entier peut être représenté de manière unique grâce au théorème de Zeckendorf, nous permettant d'introduire un nouveau système de numération. A l'image de la représentation binaire, elle est constituée de 0 et de 1. 
+
+Le bit $b$ à l'indice $n$ de la représentation, a pour valeur $b \: \times \: F_n$. \\
+
+$Exemple :$ $100101_{Zeckendorf} \: = \: F_8 \: + \:  F_4 \: + \: F_2 \: = 21_{10} \: + \: 3_{10} \: + \: 1_{10} \: = \: 25_{10}$\\\\
+L'énoncé du théorème de Zeckendorf implique que dans une telle représentation, il n'y aura jamais deux $1$ côte à côte.\\
+
+Par exemple, les deux représentations suivantes s'évaluent numériquement au même entier :\\
+
+$100000$ et $11000$ représentent l'entier $13$. La représentation de droite est une somme des termes $F_5$ et $F_6$, valant $F_7$. Cette représentation est incorrecte, en effet dans la représentation de Zeckendorf, il ne peut pas y avoir deux bits valant 1 consécutifs.\\
+
+Dès lors, nous pouvons définir des opérations arithmétiques en base de Zeckendorf.
+
+\subsection{L'addition}
+
+Premièrement, on cherche à ajouter un terme de Fibonacci à une décomposition de Zeckendorf. \\
+
+Si le terme n'est pas présent dans la décomposition, on remplace le bit correspondant par un 1. On parcourt la représentation de gauche à droite, si deux bits consécutifs valent 1, on remplace leur valeur par $0$ et le bit à leur gauche par $1$, et ce tant que la représentation est incorrecte :\\
+
+$Exemple :$\\
+$10100_Z \: + \: F_5 \: = \:10100_Z \: + \: 1000_Z \: = \: 11100_Z \: = \: 100100_Z$\\
+
+
+Si ce terme est déjà présent dans la décomposition :\\
+Si ce terme est $F_2$, on remplace le terme d'indice 1 par $1$ et le terme d'indice 0 par $0$. On effectue ensuite la même vérification que lors du premier cas.\\
+Si le terme est $F_3$, on ajoute deux fois $F_2$.\\
+Sinon, le terme peut s'écrire $F_{n+2}$, on ajoute $F_{n+1}$ puis $F_n$.\\
+$
+
+$Exemples : $\\
+$101_Z \:+\: F_2 \: = \: 101_Z \:+\: 1_Z \:=\: 110_Z \:=\: 1000_Z$\\
+$10_Z \:+\: F_3 \:=10_Z \:+\: F_2\:+\:F_2 \: =\:10_Z\:+1_Z\:+1_Z\:=\:11_Z\:+\:1_Z\:=\:100_Z\:+\:1_Z\:=\:101_Z$\\
+$10100_Z\:+\:F_4\:=10100_Z\:+\:F_3\:+\:F_2\:=\:10100_Z\:+\:10_Z\:+\:1_Z\:=100000_Z\:+\:1_Z\:=\:100001_Z$\\
+
+
+
+On peut dès lors additionner deux entiers naturels quelconques en faisant la somme du premier et de chaque terme de la décomposition du second.\\
+
+\subsection{Conversions}
+
+Convertir un nombre depuis la base 10 à la base de Zeckendorf revient simplement à appliquer l'algorithme glouton évoqué en introduction de 3. \\
+La conversion réciproque revient simplement à décomposer la représentation de Zeckendorf en somme de termes de Fibonacci.\\
+On peut ainsi lier la base de Zeckendorf et la base 10. Cette dernière étant une base de numération positionnelle exprimée à l'aide de puissances de 10, on peut très facilement passer  de la base 10 à n'importe quelle autre base exprimée à l'aide de puissances, en particulier à la base 2. \\
+
+$Exemple :$\\
+$100000_Z$ = $13_{10}$ = $2^{3}\;+\;2^{2}\;+\;2^{0}$ = $1101_2$\\
+
+On peut mettre en perspective cette dernière et la base de Zeckendorf, et voir si elle pourrait être plus efficace que le binaire dans une quelconque utilisation.\\\\
+
+
+
+\textbf{Stocker un entier sous la forme de Zeckendorf prend-il plus de place que en binaire ?}\\\\
+
+
+
+
+Une représentation de Zeckendorf est maximale quand le bit de poids fort vaut 1 et qu'ensuite un bit sur deux vaut 0, l'autre valant 1.
+D'après le lemme de la somme, une nombre de Zeckendorf de n bits est donc inférieur à $F_{n+2}$.\\
+En base 2, une représentation est maximale lorsque tous les bits valent 1.
+Un tel nombre de n bits est égal à 2^n-1.\\
+
+
+
+On pose $ P_n : "\:F_{n+2} \leq 2^{n}-1\:"$ pour tout entier n supérieur à 2.\\
+\\
+$Initialisation : n = 2$\\
+
+$F_4 = 3$ et $2^2 -1 = 3, \;$
+donc $ P_2$ est vraie.\\
+
+$F_5 = 5$ et $2^3 -1 = 7$
+donc $ P_3$ est vraie.\\
+ \\
+$Hérédité $: On suppose $P_n$ et $P_{n+1}$ vraies pour un entier $n$ fixé, montrons que $P_{n+2}$ est vraie : \\
+
+\[ F_{n+2} \leq 2^n -1 \;et\; F_{n+3} \leq 2^{n+1} - 1 \]
+\[ F_{n+2} + F_{n+3} \leq 2^n - 1 + 2^{n+1} - 1\]
+\[ F_{n+4} \leq 2^{n+1} + 2^{n+1} - 1 \leq 2^{n+2} - 1\]
+\[ F_{n+4} \leq 2^{n+2} - 1\]
+
+Donc $P_{n+2}$ est vraie. Donc, d'après le principe de récurrence, $P_n$ est vraie pour tout entier n supérieur à 2.\\
+
+
+D'après cette propriété, pour représenter un même entier, il faudra plus de termes de Fibonacci que de puissances de 2, on comprend donc que la taille de la représentation de Zeckendorf d'un entier sera plus longue que sa représentation en binaire : \\ 
+
+\begin{tabular}{|l|c|r|}
+  \hline
+  Entier & Zeckendorf  & Binaire \\
+  \hline
+  0 & 0_Z & 0_2 \\
+  1 & 1_Z & 1_2 \\
+  2 & 10_Z & 10_2 \\
+  3 & 100_Z & 11_2 \\
+  ... & ... & ... \\
+  100 & 1000010100_Z & 1100100_2 \\
+  ... & ... & ...\\
+  10^6 & 10001010000000000010100000000_Z & 11000011010100000_2\\
+  \hline
+\end{tabular}
+\\\\\\
+
+
+\textbf{La représentation de Zeckendorf n'est donc pas meilleure que le binaire en terme d'espace occupé.}\\
+
+De par sa difficulté à interagir avec d'autres bases de numérations, sa taille, ainsi que son évaluation coûteuse, la représentation de Zeckendorf ne semble pas avoir d'intérêt pratique.
+
+
+
+\end{document}
